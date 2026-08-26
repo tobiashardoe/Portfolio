@@ -1,5 +1,5 @@
 theme = "blowfish"
-defaultContentLanguage = "da"
+defaultContentLanguage = "en"
 enableRobotsTXT = true
 summaryLength = 0
 buildDrafts = false
