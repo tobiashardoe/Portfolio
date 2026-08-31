@@ -17,7 +17,7 @@ enableStructuredBreadcrumbs = false
 
 replyByEmail = false
 
-# mainSections = ["section1", "section2"]
+mainSections = ["log"]
 # robots = ""
 
 disableImageOptimization = false
@@ -125,7 +125,7 @@ forgejoDefaultServer = "https://v11.next.forgejo.org"
   showLikes = false
   showTableOfContents = false
   showCards = false
-  orderByWeight = false
+  orderByWeight = true
   groupByYear = true
   cardView = false
   cardViewScreenWidth = false
