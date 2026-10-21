@@ -1,5 +1,5 @@
 ---
-title: "ResolveDesk Developer Portfolio"
+title: "TicketDesk Developer Portfolio"
 date: 2026-08-27
 draft: false
 ---
