@@ -34,10 +34,17 @@ tokenet, ikke fra et userId valgt af klienten.
 
 ## Status og tests
 
-Seneste komplette testkørsel den 21. oktober 2026 bestod med 23 tests:
-8 DAO-tests, 1 JSON/DTO-test, 10 user/security REST-tests og 4 ticket REST-tests.
-TicketControllerTest er derefter flyttet til controllers-pakken; kompilering er
-kontrolleret efter flytningen, men hele suiten er ikke genkørt derefter.
+Projektets testsuite består af 26 tests:
+8 DAO-tests, 1 JSON/DTO-test, 10 user/security REST-tests og 7 ticket-tests,
+herunder tre WebSocket-tests. Controller-testene ligger i controllers-pakken.
+
+Supportere og administratorer kan abonnere på nye tickets via /ws/tickets.
+Første besked er deres JWT. Efter godkendelse sender serveren CONNECTED;
+når en ticket er gemt, sendes TICKET_CREATED og ticketId. Detaljer hentes
+gennem REST. Brugere kan også forbinde med eget JWT og modtage notifikationer
+om ændringer, svar, tildeling, attachments og sletning på egne tickets.
+Andre brugere modtager ikke disse beskeder. Funktionen har endnu ingen
+brugergrænseflade og virker i én serverproces.
 
 REST-testene bruger Javalin og Rest Assured med Hamcrest. PostgreSQL startes i
 Testcontainers. Tickettestene bruger et fast IP-resultat fra en test-underklasse
@@ -50,8 +57,7 @@ ticketforløb. Concurrency er implementeret, men ikke automatisk testet.
 - Hibernate bruger stadig create og genskaber data ved opstart.
 - Lokal/private IP-kontrol og proxyopsætning kræver yderligere afprøvning.
 - Passwordændring, reset og token-refresh er ikke implementeret.
-- LLM, WebSockets og Webhooks er ikke en del af den nuværende løsning.
-- Projektet demonstrerer udvalgte pensumemner, ikke samtlige læringsmål.
+- LLM og Webhooks er ikke en del af den nuværende løsning.
 
 ## Ugeindlæg
 

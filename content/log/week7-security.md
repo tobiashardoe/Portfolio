@@ -6,46 +6,22 @@ weight: 7
 summary: "Registrering, password-hashing og adgangskontrol til tickets."
 ---
 
-Opsamling skrevet den 21. oktober 2026 om security-delen i TicketDesk.
-
 ## Hvad er implementeret?
 
-SecurityController har POST /api/auth/register og POST /api/auth/login.
-LoginDTO indeholder navn, e-mail og password. Registrering kontrollerer
-input og eksisterende e-mail, hasher passwordet og opretter altid en USER.
-User.setPassword() bruger jBCrypt, og verifyPassword() bruger BCrypt.checkpw().
-passwordHash skjules i JSON og toString().
+Registrering og login bruger bcrypt og JWT. USER kan arbejde med egne tickets, SUPPORT/ADMIN med alle tickets, og kun ADMIN kan administrere brugere. Tests kontrollerer login og adgangskontrol.
 
-Undervisningens TokenSecurity-bibliotek opretter JWT med én times gyldighed.
-Tokenet sendes som Authorization: Bearer i efterfølgende requests. Et before-filter
-kontrollerer signatur og udløbstid og tilføjer den aktuelle bruger til Context.
-Brugeren og rollen genindlæses fra databasen, så serveren anvender den aktuelle rolle.
+## Hvorfor denne løsning?
 
-## Adgang til systemet
+Bcrypt beskytter gemte passwords. JWT identificerer brugeren, mens serveren kontrollerer rolle og ejerskab. Hemmeligheder hentes fra miljøvariabler.
 
-- USER kan arbejde med egne tickets og deres kommentarer og attachments.
-- SUPPORT og ADMIN kan behandle alle tickets og tildele en supporter.
-- Kun ADMIN kan administrere brugere og oprette supportere.
-- Registrering og login samt health-endpointet er offentlige.
-- Det separate IP-opslag kræver SUPPORT eller ADMIN.
+## Hvad har jeg lært?
 
-Opretter og kommentarforfatter findes fra tokenet. userId og adminId i
-query-parametre bestemmer ikke længere, hvem der udfører handlingen.
-Projektet beholder én rolle pr. bruger frem for at indføre en Role-entitet med
-ManyToMany. Denne del af undervisningens eksempel er dermed ikke implementeret.
+Jeg har lært forskellen på autentifikation og autorisation.
 
-## Konfiguration og tests
+## Udfordringer
 
-JWT_SECRET kommer fra en miljøvariabel og skal være mindst 32 bytes.
-Første administrator kan oprettes fra ADMIN_EMAIL og ADMIN_PASSWORD ved
-opstart. Der er ingen indbygget standardadgangskode. Hibernate bruger dog
-stadig create, så persistens ved genstart skal løses i deployment-delen.
+Rettigheder skal kontrolleres i både REST og WebSockets. Hibernate bruger stadig create, så data ikke bevares ved genstart.
 
-Testene kontrollerer registrering/login, hashning og skjulte passwordfelter,
-forkert password, manglende/ugyldigt/udløbet token, brugerens manglende
-adminadgang og en administrators oprettelse af en supporter, der kan logge ind.
-Tickettesten kontrollerer også adgang til en anden brugers ticket.
+## Næste skridt
 
-Passwordændring/reset og token-refresh er ikke implementeret. Løsningen er en
-undervisningsimplementering og ikke en fuld gennemgang af alle sikkerhedsrisici.
-
+Klargøre deployment med vedvarende database, Docker og automatiske builds.

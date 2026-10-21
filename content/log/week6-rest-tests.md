@@ -6,37 +6,22 @@ weight: 6
 summary: "Endpoint-tests med Rest Assured, Hamcrest og en isoleret database."
 ---
 
-Opsamling skrevet den 21. oktober 2026 om API-testene i TicketDesk.
-
 ## Hvad er implementeret?
 
-Rest Assured sender HTTP-requests til en lokal Javalin-applikation. Hamcrest
-kontrollerer statuskoder og JSON-værdier. Testcontainers starter PostgreSQL,
-så testene ikke bruger den almindelige udviklingsdatabase.
+Rest Assured og Testcontainers tester CRUD, validering og adgangskontrol. WebSockets giver support/admin besked om nye tickets og ejeren besked om ændringer og svar. Projektet har 26 tests, herunder tre WebSocket-tests.
 
-BeforeAll opretter EntityManagerFactory og starter Javalin. BeforeEach rydder
-testdata, og AfterAll lukker ressourcerne. Testene bruger de samme routes og
-fejl-handlers som applikationen. Efter uge 7 bruges også security-filteret.
+## Hvorfor denne løsning?
 
-## Hvad testes?
+HTTP-tests kontrollerer flere lag sammen. Faste IP-resultater undgår API-afhængighed, og WebSockets sender beskeder uden løbende forespørgsler.
 
-De fem oprindelige UserControllerTest-tests dækker oprettelse, læsning,
-opdatering, sletning og afvisning af et tomt navn. De demonstrerer blandt andet
-201, 200, 204, 404 og 400. Senere er fem security-tests føjet til samme klasse.
+## Hvad har jeg lært?
 
-TicketControllerTest kontrollerer scoregrænsen: 79 tillader oprettelse,
-80 afviser den, og fejl i IP-opslaget giver 503. Testene henter ticketlisten
-bagefter for at kontrollere, om noget faktisk blev gemt. En senere test
-kontrollerer også, at en bruger ikke kan læse en anden brugers ticket.
+Jeg har lært forskellen på DAO- og HTTP-tests og at vente på asynkrone beskeder.
 
-Testen bruger en simpel underklasse af AbuseIpService, der returnerer et kendt
-resultat eller kaster en fejl. Det er vores behandling af resultatet, som
-testes, ikke det eksterne HTTP-kald. Der bruges ingen API-key eller kvote.
+## Udfordringer
 
-## Forskellen fra DAO-testene
+Testdata og forbindelser skal ryddes op, og beskeder må kun nå de rette brugere. Offlinebeskeder og frontend er ikke implementeret.
 
-DAO-testene kalder Java-metoder direkte og kontrollerer lagring. REST-testene
-går gennem HTTP og afprøver desuden routing, JSON, validering og statuskoder.
+## Næste skridt
 
-Der er ikke test af alle endpoints eller alle fejltilfælde. 
-
+Arbejde med login og roller samt afprøve notifikationer fra en brugergrænseflade.
