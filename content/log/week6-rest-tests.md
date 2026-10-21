@@ -37,10 +37,6 @@ testes, ikke det eksterne HTTP-kald. Der bruges ingen API-key eller kvote.
 
 DAO-testene kalder Java-metoder direkte og kontrollerer lagring. REST-testene
 går gennem HTTP og afprøver desuden routing, JSON, validering og statuskoder.
-Hele suiten bestod med 23 tests den 21. oktober 2026 før den efterfølgende
-flytning af TicketControllerTest til controllers-pakken. Efter flytningen er
-kompilering kontrolleret.
 
-Der er ikke test af alle endpoints eller alle fejltilfælde. WebSockets og
-Webhooks fra ugeplanen er ikke implementeret i ticketsystemet.
+Der er ikke test af alle endpoints eller alle fejltilfælde. 
 
