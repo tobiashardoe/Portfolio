@@ -1,6 +1,6 @@
 ---
 title: "Uge 4 – Concurrency"
-date: 2026-10-21
+date: 2026-09-08
 draft: false
 weight: 4
 summary: "Samtidige IP-opslag med ExecutorService, Callable og Future."

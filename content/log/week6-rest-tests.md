@@ -1,6 +1,6 @@
 ---
 title: "Uge 6 – REST-tests"
-date: 2026-10-21
+date: 2026-09-29
 draft: false
 weight: 6
 summary: "Endpoint-tests med Rest Assured, Hamcrest og en isoleret database."

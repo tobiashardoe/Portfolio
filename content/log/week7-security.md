@@ -1,6 +1,6 @@
 ---
 title: "Uge 7 – Login, bcrypt og JWT"
-date: 2026-10-21
+date: 2026-10-06
 draft: false
 weight: 7
 summary: "Registrering, password-hashing og adgangskontrol til tickets."
