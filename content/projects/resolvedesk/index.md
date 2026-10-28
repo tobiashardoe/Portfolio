@@ -1,23 +1,20 @@
 ---
-title: "TicketDesk"
+title: "TicketSystem"
 date: 2026-10-21
 draft: false
-slug: "ticketdesk"
-aliases: ["/projects/resolvedesk/"]
+slug: "ticketsystem"
+aliases: ["/projects/resolvedesk/", "/projects/ticketdesk/"]
 summary: "Et ticketsystem i Java med JPA, REST, AbuseIPDB og JWT."
 ---
 
-TicketDesk er mit backendprojekt på 3. semester. Brugere kan oprette tickets,
-tilføje kommentarer og registrere oplysninger om attachments. Supportere og
-administratorer kan behandle tickets. Attachments er på nuværende tidspunkt
-metadata og en filsti; der er ikke implementeret egentlig filupload.
-
-Projektet hed tidligere ResolveDesk. Den lokale projektmappe og databasen bruger
-fortsat det oprindelige navn, mens projektets navn nu er TicketDesk.
+TicketSystem er mit backendprojekt på 3. semester. Brugere kan oprette og
+behandle egne tickets, mens supportere og administratorer kan arbejde med alle.
+Kommentarer og notifikationer gør det muligt at følge en henvendelse og dens svar.
+Databasen hedder ticketsystem. Den lokale projektmappe hedder stadig ResolveDesk.
 
 ## Opbygning
 
-[API-dokumentation: endpoints, JSON og adgangskrav]({{< relref "projects/ticketsystem-api.md" >}})
+[API og dokumentation]({{< relref "projects/ticketsystem-api.md" >}})
 
 Javalin-controllerne håndterer HTTP og kalder DAO-klasserne, der gemmer data med
 JPA/Hibernate i PostgreSQL. User, Ticket, Comment og Attachment udgør modellen.
@@ -31,20 +28,20 @@ slås op via en thread pool med tre tråde.
 
 Passwords hashes med bcrypt. Registrering giver USER, og login udsteder JWT.
 Brugere kan arbejde med egne tickets; SUPPORT og ADMIN kan behandle alle.
-Brugeradministration kræver ADMIN. Opretter og kommentarforfatter findes fra
+Kun ADMIN kan oprette supportere. Opretter og kommentarforfatter findes fra
 tokenet, ikke fra et userId valgt af klienten.
 
-## Status og tests
+## Tests og notifikationer
 
 Projektets testsuite består af 26 tests:
-8 DAO-tests, 1 JSON/DTO-test, 10 user/security REST-tests og 7 ticket-tests,
+8 DAO-tests, 1 JSON/DTO-test, 7 user/security REST-tests og 10 ticket-tests,
 herunder tre WebSocket-tests. Controller-testene ligger i controllers-pakken.
 
 Supportere og administratorer kan abonnere på nye tickets via /ws/tickets.
 Første besked er deres JWT. Efter godkendelse sender serveren CONNECTED;
 når en ticket er gemt, sendes TICKET_CREATED og ticketId. Detaljer hentes
 gennem REST. Brugere kan også forbinde med eget JWT og modtage notifikationer
-om ændringer, svar, tildeling, attachments og sletning på egne tickets.
+om ændringer, svar, tildeling og sletning på egne tickets.
 Andre brugere modtager ikke disse beskeder. Funktionen har endnu ingen
 brugergrænseflade og virker i én serverproces.
 
@@ -53,10 +50,15 @@ Testcontainers. Tickettestene bruger et fast IP-resultat fra en test-underklasse
 af AbuseIpService. Det rigtige AbuseIPDB-kald er ikke verificeret som samlet
 ticketforløb. Concurrency er implementeret, men ikke automatisk testet.
 
+## User stories
+
+- Som bruger vil jeg kunne registrere mig og logge ind, så mine tickets er knyttet til mig.
+- Som bruger vil jeg kunne oprette, se, opdatere og slette mine egne tickets.
+
 ## Afgrænsning og næste trin
 
 - Uge 8 med kørbar JAR, Docker og GitHub Actions er endnu ikke implementeret.
-- Hibernate bruger stadig create og genskaber data ved opstart.
+- Hibernate bruger update. Gamle kolonner fjernes ikke automatisk, så ændringer i skemaet skal kontrolleres.
 - Lokal/private IP-kontrol og proxyopsætning kræver yderligere afprøvning.
 - Passwordændring, reset og token-refresh er ikke implementeret.
 - LLM og Webhooks er ikke en del af den nuværende løsning.

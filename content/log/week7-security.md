@@ -8,11 +8,11 @@ summary: "Registrering, password-hashing og adgangskontrol til tickets."
 
 ## Hvad er implementeret?
 
-Registrering og login bruger bcrypt og JWT. USER kan arbejde med egne tickets, SUPPORT/ADMIN med alle tickets, og kun ADMIN kan administrere brugere. Tests kontrollerer login og adgangskontrol. Nye registreringer får altid rollen USER. Passwordhashen skjules i JSON, og tokenets signatur og udløbstid kontrolleres, før den aktuelle bruger og rolle hentes fra databasen.
+Registrering og login bruger bcrypt og JWT. USER kan arbejde med egne tickets, SUPPORT/ADMIN med alle tickets, og kun ADMIN kan oprette supportere. Tests kontrollerer login og adgangskontrol. Nye registreringer får altid rollen USER. Passwordhashen skjules i JSON, og tokenets signatur og udløbstid kontrolleres, før den aktuelle bruger og rolle hentes fra databasen.
 
 ## Hvorfor denne løsning?
 
-Bcrypt beskytter gemte passwords. JWT identificerer brugeren, mens serveren kontrollerer rolle og ejerskab. Hemmeligheder hentes fra miljøvariabler. Klienten må ikke selv vælge opretter eller kommentarforfatter gennem et bruger-ID. Serveren finder identiteten fra tokenet og kontrollerer den konkrete ticket, så et gyldigt login ikke giver adgang til andres data.
+Bcrypt beskytter gemte passwords. JWT identificerer brugeren, mens serveren kontrollerer rolle og ejerskab. JWT_SECRET kan læses fra miljøvariabler eller den lokale config.properties; ved deployment bruges miljøvariabler. Klienten må ikke selv vælge opretter eller kommentarforfatter gennem et bruger-ID. Serveren finder identiteten fra tokenet og kontrollerer den konkrete ticket, så et gyldigt login ikke giver adgang til andres data.
 
 ## Hvad har jeg lært?
 
@@ -20,7 +20,7 @@ Jeg har lært forskellen på autentifikation og autorisation. Autentifikation fa
 
 ## Udfordringer
 
-Rettigheder skal kontrolleres i både REST og WebSockets. Hibernate bruger stadig create, så data ikke bevares ved genstart. Et godkendt WebSocket-login er ikke nok, hvis tokenet senere udløber eller rollen ændres. Før drift skal konfigurationen også sikre, at brugere og tickets ikke slettes ved genstart; passwordreset og token-refresh er endnu ikke implementeret.
+Rettigheder skal kontrolleres i både REST og WebSockets. Et godkendt WebSocket-login er ikke nok, hvis tokenet senere udløber eller rollen ændres. Hibernate bruger update, så opstart ikke genskaber tabellerne. Passwordreset og token-refresh er endnu ikke implementeret.
 
 ## Næste skridt
 

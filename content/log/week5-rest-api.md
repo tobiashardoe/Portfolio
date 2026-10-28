@@ -8,7 +8,7 @@ summary: "Javalin-routes, HTTP-statuskoder, validering og fælles fejlhåndterin
 
 ## Hvad er implementeret?
 
-Javalin-routes giver CRUD, inputvalidering og JSON-fejl. IP-score på mindst 80 giver 403, og fejl i opslaget giver 503. Ingen af delene gemmer en ticket. Der kontrolleres blandt andet positive ID'er, påkrævet tekst og tilladte statusser og prioriteter. Fejl returneres som JSON, mens uventede interne fejl logges uden at sende detaljer til klienten.
+Routes-klassen samler de 12 REST-endpoints og forbinder dem med controllerne. API'et giver CRUD, inputvalidering og JSON-fejl. IP-score på mindst 80 giver 403, og fejl i opslaget giver 503. Ingen af delene gemmer en ticket. Der kontrolleres blandt andet positive ID'er, påkrævet tekst og tilladte statusser og prioriteter. Fejl returneres som JSON, mens uventede interne fejl logges uden at sende detaljer til klienten.
 
 ## Hvorfor denne løsning?
 
@@ -20,7 +20,7 @@ Jeg har lært at validere input og bruge passende HTTP-statuskoder. Jeg har arbe
 
 ## Udfordringer
 
-Lokale IP-adresser og proxyopsætning kan påvirke IP-kontrollen. Attachments er kun filoplysninger, ikke filupload. Ved en proxy kan forbindelsens IP være en anden end slutbrugerens, og den konkrete opsætning skal derfor afprøves. Jeg har også afgrænset attachments til metadata frem for at gøre filupload til en del af den nuværende løsning.
+Lokale IP-adresser og proxyopsætning kan påvirke IP-kontrollen. Attachments er kun filoplysninger, ikke filupload. Ved en proxy kan forbindelsens IP være en anden end slutbrugerens, og den konkrete opsætning skal derfor afprøves. Attachment findes kun i datamodellen og DAO'en; der er ikke attachment-endpoints eller filupload.
 
 ## Næste skridt
 

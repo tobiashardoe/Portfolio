@@ -11,9 +11,9 @@ udkast og offentliggøres ikke af portfolioens almindelige Hugo-build.
 
 ## Planlagt arbejde
 
-- Bygge TicketDesk som en kørbar JAR.
+- Bygge TicketSystem som en kørbar JAR.
 - Tilføje Dockerfile og Compose med app og PostgreSQL.
-- Bevare data ved genstart i stedet for hibernate.hbm2ddl.auto=create.
+- Afprøve vedvarende data ved genstart med Hibernate update og kontrollere gamle kolonner.
 - Køre build og tests gennem GitHub Actions.
 - Klargøre Docker Hub og deployment, når repository og server er afklaret.
 - Afprøve den konkrete proxy- og klient-IP-opsætning for AbuseIPDB-kontrollen.

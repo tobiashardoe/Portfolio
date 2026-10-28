@@ -8,7 +8,7 @@ summary: "Endpoint-tests med Rest Assured, Hamcrest og en isoleret database."
 
 ## Hvad er implementeret?
 
-Rest Assured og Testcontainers tester CRUD, validering og adgangskontrol. WebSockets giver support/admin besked om nye tickets og ejeren besked om ændringer og svar. Projektet har 26 tests, herunder tre WebSocket-tests. REST-testene kontrollerer statuskoder, JSON og lagrede data. WebSocket-beskeder indeholder kun type og ticketId, og tokenet kontrolleres, før en notifikation sendes til de relevante modtagere.
+Rest Assured og Testcontainers tester CRUD, validering og adgangskontrol. WebSockets giver support/admin besked om nye tickets og ejeren besked om ændringer og svar. Projektet har 26 tests, herunder tre WebSocket-tests. REST-testene kontrollerer statuskoder, JSON og lagrede data. De bruger Rest Assured og Hamcrest, og testnavnene i @DisplayName følger Given–When–Then. WebSocket-beskeder indeholder kun type og ticketId, og tokenet kontrolleres, før en notifikation sendes til de relevante modtagere.
 
 ## Hvorfor denne løsning?
 
@@ -24,4 +24,4 @@ Testdata og forbindelser skal ryddes op, og beskeder må kun nå de rette bruger
 
 ## Næste skridt
 
-Arbejde med login og roller samt afprøve notifikationer fra en brugergrænseflade. Adgangen skal skelne mellem en almindelig bruger, support og administrator. En kommende brugergrænseflade skal kunne omsætte notifikationerne til synlige beskeder og hente opdaterede ticketdata.
+Gennemgå rolle-testene sammen med API-dokumentationen. De skal vise, at USER afvises ved tildeling, at SUPPORT og ADMIN får adgang, og at kun ADMIN kan oprette supportere. En kommende brugergrænseflade skal kunne omsætte notifikationerne til synlige beskeder og hente opdaterede ticketdata.
