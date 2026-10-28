@@ -17,6 +17,8 @@ fortsat det oprindelige navn, mens projektets navn nu er TicketDesk.
 
 ## Opbygning
 
+[API-dokumentation: endpoints, JSON og adgangskrav]({{< relref "projects/ticketsystem-api.md" >}})
+
 Javalin-controllerne håndterer HTTP og kalder DAO-klasserne, der gemmer data med
 JPA/Hibernate i PostgreSQL. User, Ticket, Comment og Attachment udgør modellen.
 En separat AbuseIpService henter eksterne IP-oplysninger med HttpClient og mapper
