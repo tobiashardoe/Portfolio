@@ -9,7 +9,9 @@ summary: "Afgrænsning af API'et og dokumentation af de centrale endpoints."
 API'et har 12 REST-endpoints samt en separat WebSocket-forbindelse.
 README i kodeprojektet viser seks centrale endpoints: login, hentning, oprettelse,
 opdatering, tildeling og sletning af tickets. Den fulde dokumentation ligger i
-`docs/api.md` og beskriver alle endpoints, JSON-formater, adgangskrav og fejl.
+[docs/api.md](https://github.com/tobiashardoe/ticketsystem/blob/main/docs/api.md)
+og beskriver alle endpoints, JSON-formater, adgangskrav og fejl.
+Online baseadresse er `https://ticketsystem.tobiashardo.dk/api`.
 
 ## Hvorfor denne løsning?
 
@@ -34,6 +36,7 @@ at der er et endpoint til filupload.
 
 ## Næste skridt
 
-Gennemgå eksemplerne i HTTP-filen og kontrollere statuskoder og JSON-svar mod
-dokumentationen. Ved deployment skal den offentlige baseadresse tilføjes, og
-IP-kontrollen skal afprøves bag Caddy.
+Holde HTTP-eksemplerne og dokumentationen samlet om de samme felter og statuskoder.
+Login, CRUD og centrale roller er manuelt afprøvet online. Det næste er at afklare,
+hvordan den oprindelige klient-IP kontrolleres bag Caddy, uden at stole på
+vilkårlige IP-headers fra klienten.
