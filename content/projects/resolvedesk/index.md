@@ -2,6 +2,7 @@
 title: "TicketSystem"
 date: 2026-10-21
 draft: false
+showPagination: false
 slug: "ticketsystem"
 aliases: ["/projects/resolvedesk/", "/projects/ticketdesk/"]
 summary: "Et ticketsystem i Java med JPA, REST, AbuseIPDB og JWT."
